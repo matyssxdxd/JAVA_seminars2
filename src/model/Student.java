@@ -17,20 +17,20 @@ public class Student {
         return st_ID;
     }
 
-    public void setSt_ID(long st_ID) {
-        this.st_ID = st_ID;
-    }
-
     public String getString() {
         return string;
     }
 
-    public void setString(String string) {
-        this.string = string;
-    }
-
     public String getSurname() {
         return surname;
+    }
+
+    public void setSt_ID(long st_ID) {
+        this.st_ID = st_ID;
+    }
+
+    public void setString(String string) {
+        this.string = string;
     }
 
     public void setSurname(String surname) {
