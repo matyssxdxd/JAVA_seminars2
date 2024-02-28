@@ -1,16 +1,22 @@
 package model;
 
 public class Course {
-    private long c_ID;
+    private final long c_ID;
     private String title;
     private int creditPoints;
     private Professor professor;
+    private static long idCounter = 100000;
 
-    public Course() {}
+    public Course() {
+        this.c_ID = idCounter++;
+        this.title = "defaultTitle";
+        this.creditPoints = 0;
+        this.professor = null;
+    }
 
-    public Course(long c_ID, String title, int creditPoints, Professor professor) {
-        this.c_ID = c_ID;
-        this.title = title;
+    public Course(String title, int creditPoints, Professor professor) {
+        this();
+        this.title = (isValidTitle(title)) ? title : "defaultTitle";
         this.creditPoints = creditPoints;
         this.professor = professor;
     }
@@ -31,12 +37,8 @@ public class Course {
         return professor;
     }
 
-    public void setC_ID(long c_ID) {
-        this.c_ID = c_ID;
-    }
-
     public void setTitle(String title) {
-        this.title = title;
+        this.title = (isValidTitle(title)) ? title : "defaultTitle";
     }
 
     public void setCreditPoints(int creditPoints) {
@@ -45,5 +47,19 @@ public class Course {
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
+    }
+
+    private boolean isValidTitle(String title) {
+        return title != null && title.matches("[A-Za-z]+");
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "c_ID=" + c_ID +
+                ", title='" + title + '\'' +
+                ", creditPoints=" + creditPoints +
+                ", professor=" + professor +
+                '}';
     }
 }

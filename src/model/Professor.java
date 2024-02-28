@@ -1,19 +1,23 @@
 package model;
 
 public class Professor {
-    private long p_ID;
+    private final long p_ID;
     private String name;
     private String surname;
     private Degree degree;
+    private static long idCounter = 0;
 
-    private static long counter = 0;
+    public Professor() {
+        this.p_ID = idCounter++;
+        this.name = "defaultName";
+        this.surname = "defaultSurname";
+        this.degree = null;
+    }
 
-    public Professor() {}
-
-    public Professor(long p_ID, String name, String surname, Degree degree) {
-        this.p_ID = p_ID;
-        this.name = name;
-        this.surname = surname;
+    public Professor(String name, String surname, Degree degree) {
+        this();
+        this.name = (isValidName(name)) ? name : "defaultName";
+        this.surname = (isValidName(surname)) ? surname : "defaultSurname";
         this.degree = degree;
     }
 
@@ -33,26 +37,29 @@ public class Professor {
         return degree;
     }
 
-    public void setP_ID() {
-        this.p_ID = counter;
-        counter++;
-    }
-
     public void setName(String name) {
-        if (name != null && name.matches("[A-Z]{1}[a-z]+"))
-            this.name = name;
-        else
-            this.name = "default";
+        this.name = (isValidName(name)) ? name : "defaultName";
     }
 
     public void setSurname(String surname) {
-        if (surname != null && surname.matches("[A-Z]{1}[a-z]+"))
-            this.surname = surname;
-        else
-            this.surname = "default";
+        this.surname = (isValidName(surname)) ? surname : "defaultSurname";
     }
 
     public void setDegree(Degree degree) {
         this.degree = degree;
+    }
+
+    private boolean isValidName(String name) {
+        return name != null && name.matches("[A-Za-z]+");
+    }
+
+    @Override
+    public String toString() {
+        return "Professor{" +
+                "p_ID=" + p_ID +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", degree=" + degree +
+                '}';
     }
 }

@@ -1,39 +1,53 @@
 package model;
 
 public class Student {
-    private long st_ID;
-    private String string;
+    private final long st_ID;
+    private String name;
     private String surname;
+    private static long idCounter = 10000;
 
-    public Student() {}
+    public Student() {
+        this.st_ID = idCounter++;
+        this.name = "defaultName";
+        this.surname = "defaultSurname";
+    }
 
-    public Student(long st_ID, String string, String surname) {
-        this.st_ID = st_ID;
-        this.string = string;
-        this.surname = surname;
+    public Student(String name, String surname) {
+        this();
+        this.name = (isValidName(name)) ? name : "defaultName";
+        this.surname = (isValidName(surname)) ? surname : "defaultSurname";
     }
 
     public long getSt_ID() {
         return st_ID;
     }
 
-    public String getString() {
-        return string;
+    public String getName() {
+        return name;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSt_ID(long st_ID) {
-        this.st_ID = st_ID;
-    }
-
-    public void setString(String string) {
-        this.string = string;
+    public void setName(String name) {
+        this.name = (isValidName(name)) ? name : "defaultName";
     }
 
     public void setSurname(String surname) {
-        this.surname = surname;
+        this.surname = (isValidName(surname)) ? surname : "defaultSurname";
+    }
+
+    private boolean isValidName(String name) {
+        return name != null && name.matches("[A-Za-z]+");
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "st_ID=" + st_ID +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
     }
 }
