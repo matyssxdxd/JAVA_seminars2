@@ -1,21 +1,21 @@
 package model;
 
 public class Student {
-    private final long st_ID;
+    private long st_ID;
     private String name;
     private String surname;
     private static long idCounter = 10000;
 
     public Student() {
-        this.st_ID = idCounter++;
-        this.name = "defaultName";
-        this.surname = "defaultSurname";
+        setSt_ID();
+        setName("Janis");
+        setSurname("Nopietnais");
     }
 
     public Student(String name, String surname) {
-        this();
-        this.name = (isValidName(name)) ? name : "defaultName";
-        this.surname = (isValidName(surname)) ? surname : "defaultSurname";
+        setSt_ID();
+        setName(name);
+        setSurname(surname);
     }
 
     public long getSt_ID() {
@@ -30,16 +30,16 @@ public class Student {
         return surname;
     }
 
+    private void setSt_ID() {
+        this.st_ID = idCounter++;
+    }
+
     public void setName(String name) {
-        this.name = (isValidName(name)) ? name : "defaultName";
+        this.name = (Helper.isValidName(name)) ? name : "defaultName";
     }
 
     public void setSurname(String surname) {
-        this.surname = (isValidName(surname)) ? surname : "defaultSurname";
-    }
-
-    private boolean isValidName(String name) {
-        return name != null && name.matches("[A-Z]{1}[a-z]+");
+        this.surname = (Helper.isValidName(surname)) ? surname : "defaultSurname";
     }
 
     @Override

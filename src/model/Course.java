@@ -1,24 +1,24 @@
 package model;
 
 public class Course {
-    private final long c_ID;
+    private long c_ID;
     private String title;
     private int creditPoints;
     private Professor professor;
     private static long idCounter = 100000;
 
     public Course() {
-        this.c_ID = idCounter++;
-        this.title = "defaultTitle";
-        this.creditPoints = 1;
-        this.professor = null;
+        setC_ID();
+        setTitle("Matematika");
+        setCreditPoints(1);
+        setProfessor(new Professor());
     }
 
     public Course(String title, int creditPoints, Professor professor) {
-        this();
-        this.title = (isValidTitle(title)) ? title : "defaultTitle";
-        this.creditPoints = (isValidCreditpoints(creditPoints)) ? creditPoints : 1;
-        this.professor = (isValidProfessor(professor)) ? professor : null;
+        setC_ID();
+        setTitle(title);
+        setCreditPoints(creditPoints);
+        setProfessor(professor);
     }
 
     public long getC_ID() {
@@ -37,29 +37,22 @@ public class Course {
         return professor;
     }
 
+    private void setC_ID() {
+        this.c_ID = idCounter++;
+    }
+
     public void setTitle(String title) {
-        this.title = (isValidTitle(title)) ? title : "defaultTitle";
+        this.title = (Helper.isValidTitle(title)) ? title : "defaultTitle";
     }
 
     public void setCreditPoints(int creditPoints) {
-        this.creditPoints = (isValidCreditpoints(creditPoints)) ? creditPoints : 1;
+        this.creditPoints = (Helper.isValidCreditpoints(creditPoints)) ? creditPoints : 1;
     }
 
     public void setProfessor(Professor professor) {
-        this.professor = (isValidProfessor(professor)) ? professor : null;
+        this.professor = (Helper.isValidProfessor(professor)) ? professor : new Professor();
     }
 
-    private boolean isValidTitle(String title) {
-        return title != null && title.matches("[A-Z]{1}[a-z]+");
-    }
-
-    private boolean isValidProfessor(Professor professor) {
-        return professor != null;
-    }
-
-    private boolean isValidCreditpoints(int creditPoints) {
-        return creditPoints > 0;
-    }
 
     @Override
     public String toString() {

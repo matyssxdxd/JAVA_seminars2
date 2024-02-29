@@ -1,24 +1,24 @@
 package model;
 
 public class Grade {
-    private final long g_ID;
+    private long g_ID;
     private int value;
     private Student student;
     private Course course;
     private static long idCounter = 200000;
 
     public Grade() {
-        this.g_ID = idCounter++;
-        this.value = 1;
-        this.student = null;
-        this.course = null;
+        setG_ID();
+        setValue(1);
+        setStudent(new Student());
+        setCourse(new Course());
     }
 
     public Grade(int value, Student student, Course course) {
-        this();
-        this.value = (isValidValue(value)) ? value : 1;
-        this.student = (isValidStudent(student)) ? student : null;
-        this.course = (isValidCourse(course)) ? course : null;
+        setG_ID();
+        setValue(value);
+        setStudent(student);
+        setCourse(course);
     }
 
     public long getG_ID() {
@@ -37,28 +37,20 @@ public class Grade {
         return course;
     }
 
+    private void setG_ID() {
+        this.g_ID = idCounter++;
+    }
+
     public void setValue(int value) {
-        this.value = (isValidValue(value)) ? value : 1;
+        this.value = (Helper.isValidValue(value)) ? value : 1;
     }
 
     public void setStudent(Student student) {
-        this.student = (isValidStudent(student)) ? student : null;
+        this.student = (Helper.isValidStudent(student)) ? student : new Student();
     }
 
     public void setCourse(Course course) {
-        this.course = (isValidCourse(course)) ? course : null;
-    }
-
-    private boolean isValidValue(int value) {
-        return value > 0 && value <= 10;
-    }
-
-    private boolean isValidStudent(Student student) {
-        return student != null;
-    }
-
-    private boolean isValidCourse(Course course) {
-        return course != null;
+        this.course = (Helper.isValidCourse(course)) ? course : new Course();
     }
 
     @Override
