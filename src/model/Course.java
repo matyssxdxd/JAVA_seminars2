@@ -10,15 +10,15 @@ public class Course {
     public Course() {
         this.c_ID = idCounter++;
         this.title = "defaultTitle";
-        this.creditPoints = 0;
+        this.creditPoints = 1;
         this.professor = null;
     }
 
     public Course(String title, int creditPoints, Professor professor) {
         this();
         this.title = (isValidTitle(title)) ? title : "defaultTitle";
-        this.creditPoints = creditPoints;
-        this.professor = professor;
+        this.creditPoints = (isValidCreditpoints(creditPoints)) ? creditPoints : 1;
+        this.professor = (isValidProfessor(professor)) ? professor : null;
     }
 
     public long getC_ID() {
@@ -42,15 +42,23 @@ public class Course {
     }
 
     public void setCreditPoints(int creditPoints) {
-        this.creditPoints = creditPoints;
+        this.creditPoints = (isValidCreditpoints(creditPoints)) ? creditPoints : 1;
     }
 
     public void setProfessor(Professor professor) {
-        this.professor = professor;
+        this.professor = (isValidProfessor(professor)) ? professor : null;
     }
 
     private boolean isValidTitle(String title) {
-        return title != null && title.matches("[A-Za-z]+");
+        return title != null && title.matches("[A-Z]{1}[a-z]+");
+    }
+
+    private boolean isValidProfessor(Professor professor) {
+        return professor != null;
+    }
+
+    private boolean isValidCreditpoints(int creditPoints) {
+        return creditPoints > 0;
     }
 
     @Override

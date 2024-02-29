@@ -39,7 +39,7 @@ public class Student {
     }
 
     private boolean isValidName(String name) {
-        return name != null && name.matches("[A-Za-z]+");
+        return name != null && name.matches("[A-Z]{1}[a-z]+");
     }
 
     @Override

@@ -11,14 +11,14 @@ public class Professor {
         this.p_ID = idCounter++;
         this.name = "defaultName";
         this.surname = "defaultSurname";
-        this.degree = null;
+        this.degree = Degree.other;
     }
 
     public Professor(String name, String surname, Degree degree) {
         this();
         this.name = (isValidName(name)) ? name : "defaultName";
         this.surname = (isValidName(surname)) ? surname : "defaultSurname";
-        this.degree = degree;
+        this.degree = (isValidDegree(degree)) ? degree : Degree.other;
     }
 
     public long getP_ID() {
@@ -46,11 +46,15 @@ public class Professor {
     }
 
     public void setDegree(Degree degree) {
-        this.degree = degree;
+        this.degree = (isValidDegree(degree)) ? degree : Degree.other;
     }
 
     private boolean isValidName(String name) {
-        return name != null && name.matches("[A-Za-z]+");
+        return name != null && name.matches("[A-Z]{1}[a-z]+");
+    }
+
+    private boolean isValidDegree(Degree degree) {
+        return degree != null;
     }
 
     @Override

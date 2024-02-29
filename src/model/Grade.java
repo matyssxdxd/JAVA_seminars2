@@ -17,8 +17,8 @@ public class Grade {
     public Grade(int value, Student student, Course course) {
         this();
         this.value = (isValidValue(value)) ? value : 1;
-        this.student = student;
-        this.course = course;
+        this.student = (isValidStudent(student)) ? student : null;
+        this.course = (isValidCourse(course)) ? course : null;
     }
 
     public long getG_ID() {
@@ -42,15 +42,23 @@ public class Grade {
     }
 
     public void setStudent(Student student) {
-        this.student = student;
+        this.student = (isValidStudent(student)) ? student : null;
     }
 
     public void setCourse(Course course) {
-        this.course = course;
+        this.course = (isValidCourse(course)) ? course : null;
     }
 
     private boolean isValidValue(int value) {
         return value > 0 && value <= 10;
+    }
+
+    private boolean isValidStudent(Student student) {
+        return student != null;
+    }
+
+    private boolean isValidCourse(Course course) {
+        return course != null;
     }
 
     @Override
