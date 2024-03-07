@@ -1,20 +1,23 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Course {
     private long c_ID;
     private String title;
     private int creditPoints;
-    private Professor professor;
+    private ArrayList<Professor> professors;
     private static long idCounter = 100000;
 
     public Course() {
         setC_ID();
         setTitle("Matematika");
         setCreditPoints(1);
-        setProfessor(new Professor());
+        setProfessor(new ArrayList<Professor>(Arrays.asList(new Professor())));
     }
 
-    public Course(String title, int creditPoints, Professor professor) {
+    public Course(String title, int creditPoints, ArrayList<Professor> professor) {
         setC_ID();
         setTitle(title);
         setCreditPoints(creditPoints);
@@ -33,8 +36,8 @@ public class Course {
         return creditPoints;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public ArrayList<Professor> getProfessor() {
+        return professors;
     }
 
     private void setC_ID() {
@@ -49,8 +52,23 @@ public class Course {
         this.creditPoints = (Helper.isValidCreditpoints(creditPoints)) ? creditPoints : 1;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = (Helper.isValidProfessor(professor)) ? professor : new Professor();
+    public void setProfessor(ArrayList<Professor> professors) {
+        if (professors != null)
+            this.professors = professors;
+        else
+            this.professors = new ArrayList<Professor>(Arrays.asList(new Professor()));
+    }
+
+    public void addProfessor(Professor professor) {
+        if (!professors.contains(professor)) {
+            professors.add(professor);
+        }
+    }
+
+    public void removeProfessor(Professor professor) {
+        if (professors.contains(professor)) {
+            professors.remove(professor);
+        }
     }
 
 
@@ -60,7 +78,7 @@ public class Course {
                 "c_ID=" + c_ID +
                 ", title='" + title + '\'' +
                 ", creditPoints=" + creditPoints +
-                ", professor=" + professor +
+                ", professor=" + professors +
                 '}';
     }
 }

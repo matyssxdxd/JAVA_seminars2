@@ -13,14 +13,13 @@ public class VeA_IS {
     private static final Grade grad = new Grade();
 
     private static final Professor prof1 = new Professor("Janis", "Uga", Degree.phd);
+    private static final ArrayList<Professor> profList = new ArrayList<>(Arrays.asList(prof, prof1));
     private static final Student stud1 = new Student("Juris", "Kalnins");
-    private static final Course course1 = new Course("Matematiska Analize I", 4, prof1);
-    private static final Course course2 = new Course("Matematiska Analize II", 2, prof1);
+    private static final Course course1 = new Course("Matematiska Analize I", 4, profList);
+    private static final Course course2 = new Course("Matematiska Analize II", 2, profList);
     private static final Grade grad1 = new Grade(8, stud1, course1);
     private static final Grade grad2 = new Grade(10, stud1, course2);
 
-
-    private static final ArrayList<Professor> profList = new ArrayList<>(Arrays.asList(prof, prof1));
     private static final ArrayList<Student> studList = new ArrayList<>(Arrays.asList(stud, stud1));
     private static final ArrayList<Course> courseList = new ArrayList<>(Arrays.asList(course, course1, course2));
     private static final ArrayList<Grade> gradeList = new ArrayList<>(Arrays.asList(grad, grad1, grad2));
