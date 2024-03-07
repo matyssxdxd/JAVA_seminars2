@@ -10,7 +10,7 @@ public class Student extends Person {
     }
 
     public Student(String name, String surname) {
-        super(name, surname)
+        super(name, surname);
         setSt_ID();
     }
 
