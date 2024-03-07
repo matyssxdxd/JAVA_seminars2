@@ -13,14 +13,17 @@ public class VeA_IS {
     private static final Grade grad = new Grade();
 
     private static final Professor prof1 = new Professor("Janis", "Uga", Degree.phd);
-    private static final ArrayList<Professor> profList = new ArrayList<>(Arrays.asList(prof, prof1));
     private static final Student stud1 = new Student("Juris", "Kalnins");
+
+    private static final ArrayList<Student> studList = new ArrayList<>(Arrays.asList(stud, stud1));
+    private static final ArrayList<Professor> profList = new ArrayList<>(Arrays.asList(prof, prof1));
+    private static final ArrayList<Person> persons = new ArrayList<>(Arrays.asList(prof, prof1, stud, stud1));
+
     private static final Course course1 = new Course("Matematiska Analize I", 4, profList);
     private static final Course course2 = new Course("Matematiska Analize II", 2, profList);
     private static final Grade grad1 = new Grade(8, stud1, course1);
     private static final Grade grad2 = new Grade(10, stud1, course2);
 
-    private static final ArrayList<Student> studList = new ArrayList<>(Arrays.asList(stud, stud1));
     private static final ArrayList<Course> courseList = new ArrayList<>(Arrays.asList(course, course1, course2));
     private static final ArrayList<Grade> gradeList = new ArrayList<>(Arrays.asList(grad, grad1, grad2));
 
@@ -124,22 +127,22 @@ public class VeA_IS {
     public static void createStudent(String name, String surname) throws Exception {
         if (name == null || surname == null) throw new Exception("NAA MAN");
 
-        for (Student student : studList) {
-            if (student.getName().equals(name) && student.getSurname().equals(surname)) {
+        for (Person student : persons) {
+            if (student.getName().equals(name) && student.getSurname().equals(surname) && !(student instanceof Student)) {
                 throw new Exception("BABA");
             }
         }
 
         Student st = new Student(name, surname);
-        studList.add(st);
+        persons.add(st);
     }
 
     public static Student retrieveStudentBySurname(String surname) throws Exception {
         if (surname == null) throw new Exception("AHAHA");
 
-        for (Student student : studList) {
-            if (student.getSurname().equals(surname)) {
-                return student;
+        for (Person student : persons) {
+            if (student.getSurname().equals(surname) && student instanceof Student) {
+                return (Student) student;
             }
         }
 
@@ -149,8 +152,8 @@ public class VeA_IS {
     public static void updateStudentByNameAndSurname(String name, String surname, String newSurname) throws Exception {
         if (name == null || surname == null || newSurname == null) throw new Exception("BLABLA");
 
-        for (Student student : studList) {
-            if (student.getName().equals(name) && student.getSurname().equals(surname)) {
+        for (Person student : persons) {
+            if (student.getName().equals(name) && student.getSurname().equals(surname) && student instanceof Student) {
                 if (!surname.equals(newSurname)) {
                     student.setSurname(newSurname);
                     return;
@@ -164,8 +167,8 @@ public class VeA_IS {
     public static void  deleteByNameAndSurname(String name, String surname) throws Exception {
         if (name == null || surname == null) throw new Exception("BLABLA");
 
-        for (Student student : studList) {
-            if (student.getName().equals(name) && student.getSurname().equals(surname)) {
+        for (Person student : persons) {
+            if (student.getName().equals(name) && student.getSurname().equals(surname) && student instanceof Student) {
                 studList.remove(student);
                 return;
             }
@@ -174,14 +177,16 @@ public class VeA_IS {
     }
 
     public static ArrayList<Student> sortStudentsByAverageGrade() throws Exception {
-        ArrayList<Student> result = new ArrayList<Student>();
+        ArrayList<Student> result = new ArrayList<>();
 
-        for (Student student : studList) {
-            try {
-                calculateAverageGrade(student);
-                result.add(student);
-            } catch (Exception e){
-                System.out.println(e);
+        for (Person student : persons) {
+            if (student instanceof Student) {
+                try {
+                    calculateAverageGrade((Student) student);
+                    result.add((Student) student);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
             }
         }
 
