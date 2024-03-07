@@ -162,6 +162,18 @@ public class VeA_IS {
         throw new Exception("BEE");
     }
 
+    public static void  deleteByNameAndSurname(String name, String surname) throws Exception {
+        if (name == null || surname == null) throw new Exception("BLABLA");
+
+        for (Student student : studList) {
+            if (student.getName().equals(name) && student.getSurname().equals(surname)) {
+                studList.remove(student);
+                return;
+            }
+        }
+
+    }
+
     public static void sortStudentsByAverageGrade() throws Exception {
 
     }
