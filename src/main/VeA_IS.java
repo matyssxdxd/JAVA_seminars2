@@ -174,7 +174,29 @@ public class VeA_IS {
 
     }
 
-    public static void sortStudentsByAverageGrade() throws Exception {
+    public static ArrayList<Student> sortStudentsByAverageGrade() throws Exception {
+        ArrayList<Student> result = new ArrayList<Student>();
 
+        for (Student student : studList) {
+            try {
+                calculateAverageGrade(student);
+                result.add(student);
+            } catch (Exception e){
+                System.out.println(e);
+            }
+        }
+
+        for (int i = 0; i < result.size(); i++) {
+            for (int j = 0; j < result.size(); j++) {
+                if (calculateAverageGrade(result.get(i)) < calculateAverageGrade(result.get(j))) {
+                    Student temp = result.get(i);
+                    result.set(i, result.get(j));
+                    result.set(j, temp);
+                }
+            }
+        }
+
+
+        return result;
     }
 }
